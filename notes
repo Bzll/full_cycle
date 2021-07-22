@@ -1,0 +1,99 @@
+20-07-2021
+
+namespaces = isola os processos
+
+namespaces > S. O.
+	pid
+	user
+	network
+	file system
+
+cgroups = controla os recursos
+	memory = 500mb
+	cpu_shares = 512
+	
+file system = OFS (Overlay File System)
+
+imagens 
+	imagem inicial (scratch - imagem vazia, hd formatado)
+	myImage:<version>[latest]
+	estado imutável
+	
+dockerfile = definição/construção de imagem
+	FROM: (imagem existente)
+	RUN: (comandos ex.: apt-get install apache)
+	EXPOSE: 8000 (expor portas específicas)
+
+dockerfile > build > image (com camada read/write)
+
+image > commit > image:v2
+
+image registry = [image n, image y, image x]
+
+docker host (daemon - API)
+
+docker client
+	- cria containers
+	- run, pull, push
+	- volumes (compartilhamento entre docker e computador)
+	- network
+	
+
+comandos docker
+	ps - lista containers rodando
+	run - executar um contiainer
+		exemplo: docker run <image:hello-world:version[latest]>
+	pull - baixando do container registry 
+	docker run -it ubuntu bash - -it > parametros
+								 -i modo interativo
+								 -t tty - para digitar coisas no terminal
+								  ubuntu nome da imagem
+								  bash comando a ser utilizado depois de baixar a imagem
+	docker run -it --rm ubuntu bash
+								--rm (quando sair ja remove automaticamente o container)
+
+nginx - proxy reverso - servidor web
+sudo docker run -p 8080:80 nginx:latest
+	-p porta pubilshed apontada do docker cli
+	8080 da minha maquina redirecionando para porta 80 do container
+
+sudo docker run -d -p 8080:80 nginx:latest
+	-d detached (desatachando o terminal do processo do container)
+
+sudo docker rm "name|id" -f
+	rm - mata o container
+	-f - forçado (quando estiver ativo)
+
+acessando e alterando arquivos de um container:
+	sudo docker run -d --name nginx -p 8080:80 nginx
+	sudo docker exec nginx ls
+		executa um comando no nosso container
+	sudo docker exec -it nginx bash
+	cd /usr/share/nginx/html
+	apt-get update
+	apt-get install vim
+	vim index.html
+
+comandos vim:
+	letra i: modo insert
+	esc sair do modo insert
+	:w (write para salvar)
+	:q (quit sair)
+	:q! (sair sem salvar)
+	:wq (sair gravando)
+
+bind mount (recomendado somente para ambiente de desenvolvimento)
+	(monta um volume que está no seu computador para dentro do container):
+	sudo docker run -d --name nginx -p 8080:80 -v ~/GitPersonal/full_cycle/html/:/usr/share/nginx/html nginx
+	-v montei uma pasta do meu computador para uma pasta dentro do container
+	echo $(pwd)
+	sudo docker run -d --name nginx -p 8080:80 --mount type=bind,source="$(pwd)",target=/usr/share/nginx/html nginx
+	diferença entre -v e --mount: --mount é mais explicito, com o -v, consigo criar pastas que nao existam no source
+
+trabalhando com volumes
+	sudo docker volume ls
+	sudo docker volume create meuvolume
+	sudo docker volume inspect meuvolume
+	sudo docker run --name nginx -d --mount type=volume,source=meuvolume,target=/app nginx
+	sudo docker run --name nginx3 -d -v meuvolume:/app nginx
+	sudo docker volume prune (remove todos os volumes nao utilizados por nenhum container, quando é excluido um container não é removido o volume)
