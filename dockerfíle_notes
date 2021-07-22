@@ -1,0 +1,22 @@
+# FROM nginx:latest
+
+# #diretório que será trabalhado no container
+# WORKDIR /app
+
+# RUN apt-get update && \
+#     apt-get install vim -y
+
+# COPY html/ /usr/share/nginx/html
+
+FROM ubuntu:latest
+
+## depois que tudo foi rodado, executar para que o processo funcione
+# comando fixo
+ENTRYPOINT [ "echo", "Hello" ]
+
+# comando variável 
+# CMD sempra ira deopis do entry point
+# detalhe, todo comando que eu inserir na chamada do container, irá substituir o CMD abaixo
+# eg.: docker run --rm bzll/example echo "Ciro"
+CMD ["World"]
+
