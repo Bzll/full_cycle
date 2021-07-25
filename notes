@@ -120,3 +120,44 @@ para publicar uma imagem no hub.docker
 docker login (credentials)
 docker logout (para sair)
 docker push bzll/full_cycle
+
+23-07-2021
+tipos de network: 
+	bridge (ponte - default), 
+	host (mescla a network do docker com o host), 
+	overlay (varios dockers em maquinas diferentes se comuniquem, eg.: docker swarm cria cluster de dockers)
+	macvlan
+	none
+
+# bridge
+	docker network ls
+	docker network prune
+
+	docker run -d -it --name ubuntu1 bash
+
+	docker network inspect bridge
+
+	docker attach ubuntu1
+
+	ip addr show (mostra ip)
+
+	criar uma nova rede
+	docker network create --driver bridge minharede
+	docker run -dit --name ubuntu1 --network minharede bash
+
+	quando eu crio minha rede e forço na criação do container, consigo comunicar pelo hostname
+	ping ubuntu2
+
+	conectar um container numa rede
+	docker network connect minharede ubuntu3
+
+# host
+
+	não preciso expor porta pois basicamente mecla as network do docker com a local
+	docker run --rm -d --name nginx --network host nginx
+	curl http://localhost
+
+# container acessando algo no docker host
+	curl http://host.docker.internal:8000
+
+
