@@ -160,4 +160,17 @@ tipos de network:
 # container acessando algo no docker host
 	curl http://host.docker.internal:8000
 
+25-07-2021
+	docker rm -f 7de (inicio do id)
+	docker logs laravel
+	docker build -t bzll/hello-express node/ -f Dockerfile.prod
+	# link simbolico
+	ln -s html bzll
+
+
+	docker compose
+	ferramenta complementar ao docker baseado em um arquivo de manifesto (.yaml) sobe todos os containers de forma automatica
+	docker-compose up/down (para subir todos os containers) -d
+	docker-compose ps
+	docker-compose up -d --build (irá reibuildar as imagens)
 
