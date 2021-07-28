@@ -1,2 +1,4 @@
 /docker/node/node_modules
 /docker/mysql
+/docker_desafio_02/node/node_modules
+/docker_desafio_02/mysql
