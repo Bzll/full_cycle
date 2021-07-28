@@ -21,7 +21,7 @@ app.get('/',(req,res) => {
     var response = ('<h1>Full Cycle</h1>')
 
     connection = mysql.createConnection(config)
-    connection.query("SELECT * FROM people", function(err, result, fields){
+    connection.query("SELECT * FROM people", function(err, result){
         if (err) throw err;
         response += '<br>' + result[0]['name'];
         res.send(response);
