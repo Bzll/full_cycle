@@ -1,0 +1,13 @@
+28-07-2021
+Git Flow
+Configurações dos nossos branches
+Pull Requests / Template para PR
+Code Review
+Plugin do VSCode
+CODEOWNERS
+SemVer
+
+gpg --list-secret-key --keyid-form LONG
+gpg --full-generate-key
+
+p0p0@2029

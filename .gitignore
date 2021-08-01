@@ -2,3 +2,5 @@
 /docker/mysql
 /docker_desafio_02/node/node_modules
 /docker_desafio_02/mysql
+jsconfig.json
+@Types/GlideSoft/madrid/client.d.ts
